@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipIt", "ShipIt\ShipIt.csproj", "{C72EFAEB-D60E-413C-AB23-066792403709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipItTest", "ShipItTest\ShipItTest.csproj", "{6DADE295-68C4-43D4-966D-6C386F76E739}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C72EFAEB-D60E-413C-AB23-066792403709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C72EFAEB-D60E-413C-AB23-066792403709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C72EFAEB-D60E-413C-AB23-066792403709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C72EFAEB-D60E-413C-AB23-066792403709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DADE295-68C4-43D4-966D-6C386F76E739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DADE295-68C4-43D4-966D-6C386F76E739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DADE295-68C4-43D4-966D-6C386F76E739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DADE295-68C4-43D4-966D-6C386F76E739}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
