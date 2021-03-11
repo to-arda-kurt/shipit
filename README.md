@@ -1,8 +1,8 @@
 # ShipIt Inventory Management
 
 ## Setup Instructions
-Open the solution in Rider.
-Rider should automatically set up and install everything you'll need apart from the database connection!
+Open the project in VSCode.
+VSCode should automatically set up and install everything you'll need apart from the database connection!
 
 ### Setting up the Database.
 Create 2 new postgres databases - one for the main program and one for our test database.
@@ -16,10 +16,10 @@ POSTGRES_CONNECTION_STRING=Server=127.0.0.1;Port=5432;Database=your_database_nam
 ```
 
 ## Running The API
-Once set up, simply run the `ShipIt_DotNetCore` profile from `launchSettings.json`.
+Once set up, simply run dotnet run in the ShipIt directory.
 
 ## Running The Tests
-Tests should be discovered automatically, so just right click the ShitItTest project and click 'Run Tests'.
+To run the tests you should be able to run dotnet test in the ShipItTests directory.
 
 ## Deploying to Production
 TODO
