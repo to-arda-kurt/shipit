@@ -1,8 +1,8 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
- using Microsoft.AspNetCore.Mvc;
- using ShipIt.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
 using ShipIt.Repositories;
 
@@ -23,7 +23,7 @@ namespace ShipIt.Controllers
         }
 
         [HttpPost("")]
-        public void Post([FromBody] OutboundOrderRequestModel request)
+        public OrderRespond Post([FromBody] OutboundOrderRequestModel request)
         {
             Log.Info(String.Format("Processing outbound order: {0}", request));
 
@@ -40,9 +40,17 @@ namespace ShipIt.Controllers
             var productDataModels = _productRepository.GetProductsByGtin(gtins);
             var products = productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
 
+
+
+            // Track Quantity from orderline.quantity
+            // Get Product Weight from products
+            // Make calculation and add to totalWeight
+            // Calculate how many trucks we need roughly
+
             var lineItems = new List<StockAlteration>();
             var productIds = new List<int>();
             var errors = new List<string>();
+            double totalWeight = 0.0;
 
             foreach (var orderLine in request.OrderLines)
             {
@@ -52,7 +60,10 @@ namespace ShipIt.Controllers
                 }
                 else
                 {
+                    var quantity = orderLine.quantity;
                     var product = products[orderLine.gtin];
+                    totalWeight += product.Weight * quantity;
+
                     lineItems.Add(new StockAlteration(product.Id, orderLine.quantity));
                     productIds.Add(product.Id);
                 }
@@ -94,6 +105,10 @@ namespace ShipIt.Controllers
             }
 
             _stockRepository.RemoveStock(request.WarehouseId, lineItems);
+
+            var trucks = (int)Math.Ceiling(totalWeight/2000);
+
+            return new OrderRespond(trucks);
         }
     }
 }
