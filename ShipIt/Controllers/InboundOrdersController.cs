@@ -37,16 +37,34 @@ namespace ShipIt.Controllers
             Log.Debug(String.Format("Found operations manager: {0}", operationsManager));
 
             var allStock = _stockRepository.GetStockByWarehouseId(warehouseId);
+            var allStockIds = new List<int>(allStock.Select(x => x.ProductId));
+
+
+            var allProducts = _productRepository.GetAllProductsById(allStockIds);
+
+            //Make a list of company names needed
+            var allStockCompanies = new HashSet<string>();
+            foreach(var (key, value) in allProducts)
+            {
+                allStockCompanies.Add(value.Gcp);
+            }
+            // Make one query for all company information
+            var allCompanies = _companyRepository.GetAllCompaniesByGcp(allStockCompanies);
+            // var allCompanies = new Dictionary<string, CompanyDataModel>();
+
+
+
 
             Dictionary<Company, List<InboundOrderLine>> orderlinesByCompany = new Dictionary<Company, List<InboundOrderLine>>();
+
             foreach (var stock in allStock)
             {
-                Product product = new Product(_productRepository.GetProductById(stock.ProductId));
-                if(stock.held < product.LowerThreshold && !product.Discontinued)
+                Product product = new Product(allProducts[stock.ProductId]);
+                if(stock.Held < product.LowerThreshold && !product.Discontinued)
                 {
-                    Company company = new Company(_companyRepository.GetCompany(product.Gcp));
+                    Company company = new Company(allCompanies[product.Gcp]);
 
-                    var orderQuantity = Math.Max(product.LowerThreshold * 3 - stock.held, product.MinimumOrderQuantity);
+                    var orderQuantity = Math.Max(product.LowerThreshold * 3 - stock.Held, product.MinimumOrderQuantity);
 
                     if (!orderlinesByCompany.ContainsKey(company))
                     {

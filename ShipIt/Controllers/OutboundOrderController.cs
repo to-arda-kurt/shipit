@@ -91,10 +91,10 @@ namespace ShipIt.Controllers
                 }
 
                 var item = stock[lineItem.ProductId];
-                if (lineItem.Quantity > item.held)
+                if (lineItem.Quantity > item.Held)
                 {
                     errors.Add(
-                        string.Format("Product: {0}, stock held: {1}, stock to remove: {2}", orderLine.gtin, item.held,
+                        string.Format("Product: {0}, stock held: {1}, stock to remove: {2}", orderLine.gtin, item.Held,
                             lineItem.Quantity));
                 }
             }
@@ -106,9 +106,9 @@ namespace ShipIt.Controllers
 
             _stockRepository.RemoveStock(request.WarehouseId, lineItems);
 
-            var trucks = (int)Math.Ceiling(totalWeight/2000);
+            var numOfTrucks = (int)Math.Ceiling(totalWeight/2000000);
 
-            return new OrderRespond(trucks);
+            return new OrderRespond(numOfTrucks);
         }
     }
 }

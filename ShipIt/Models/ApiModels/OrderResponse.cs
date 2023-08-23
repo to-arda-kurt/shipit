@@ -3,15 +3,16 @@
     public class OrderRespond : Response
     {
 
-        public int Truck { get; set; }
+        public int NumOfTrucks { get; set; }
         //Empty constructor required for xml serialization.
         public OrderRespond()
         {
         }
 
-        public OrderRespond(int truck)
+        public OrderRespond(int numOfTrucks)
         {
-            Truck= truck;
+            NumOfTrucks= numOfTrucks;
+            Success = true;
         }
     }
 }
