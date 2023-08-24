@@ -8,8 +8,10 @@ namespace ShipIt.Models.DataModels
     {
         [DatabaseColumnName("name")]
         public string Name { get; set; }
+
         [DatabaseColumnName("w_id")]
         public int WarehouseId { get; set; }
+        
         [DatabaseColumnName("role")]
         public string Role { get; set; }
         [DatabaseColumnName("ext")]
@@ -17,7 +19,6 @@ namespace ShipIt.Models.DataModels
 
         public EmployeeDataModel(IDataReader dataReader) : base(dataReader)
         { }
-
         public EmployeeDataModel()
         { }
 

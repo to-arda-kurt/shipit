@@ -18,7 +18,7 @@ namespace ShipIt.Repositories
         IEnumerable<EmployeeDataModel> GetEmployeesByWarehouseId(int warehouseId);
         EmployeeDataModel GetOperationsManager(int warehouseId);
         void AddEmployees(IEnumerable<Employee> employees);
-        void RemoveEmployee(string name);
+        void RemoveEmployee(int id);
     }
 
     public class EmployeeRepository : RepositoryBase, IEmployeeRepository
@@ -120,10 +120,10 @@ namespace ShipIt.Repositories
             base.RunTransaction(sql, parametersList);
         }
 
-        public void RemoveEmployee(string name)
+        public void RemoveEmployee(int id)
         {
-            string sql = "DELETE FROM em WHERE name = @name";
-            var parameter = new NpgsqlParameter("@name", name);
+            string sql = "DELETE FROM em WHERE em_id = @id";
+            var parameter = new NpgsqlParameter("@id", id);
             var rowsDeleted = RunSingleQueryAndReturnRecordsAffected(sql, parameter);
             if (rowsDeleted == 0)
             {
