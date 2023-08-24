@@ -61,7 +61,7 @@ namespace ShipItTest
             outboundOrderController.Post(outboundOrder);
 
             var stock = stockRepository.GetStockByWarehouseAndProductIds(WAREHOUSE_ID, new List<int>() { productId })[productId];
-            Assert.AreEqual(stock.held, 7);
+            Assert.AreEqual(stock.Held, 7);
         }
 
         [Test]

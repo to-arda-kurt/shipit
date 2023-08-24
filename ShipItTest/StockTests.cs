@@ -31,7 +31,7 @@ namespace ShipItTest
             stockRepository.AddStock(1, new List<StockAlteration>(){new StockAlteration(productId, 1)});
 
             var databaseStock = stockRepository.GetStockByWarehouseAndProductIds(1, new List<int>(){productId});
-            Assert.AreEqual(databaseStock[productId].held, 1);
+            Assert.AreEqual(databaseStock[productId].Held, 1);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace ShipItTest
             stockRepository.AddStock(1, new List<StockAlteration>() { new StockAlteration(productId, 5) });
 
             var databaseStock = stockRepository.GetStockByWarehouseAndProductIds(1, new List<int>() { productId });
-            Assert.AreEqual(databaseStock[productId].held, 7);
+            Assert.AreEqual(databaseStock[productId].Held, 7);
         }
     }
 }

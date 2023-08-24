@@ -32,7 +32,7 @@ namespace ShipItTest.Builders
             {
                 WarehouseId = this.WarehouseId,
                 ProductId = this.ProductId,
-                held = this.Held
+                Held = this.Held
             };
         }
     }

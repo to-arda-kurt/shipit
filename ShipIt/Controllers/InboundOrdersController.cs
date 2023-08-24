@@ -40,20 +40,26 @@ namespace ShipIt.Controllers
             var allStockIds = new List<int>(allStock.Select(x => x.ProductId));
 
 
-            var allProducts = _productRepository.GetAllProductsById(allStockIds);
+            Dictionary<int, ProductDataModel> allProducts = new Dictionary<int, ProductDataModel>();
 
-            //Make a list of company names needed
-            var allStockCompanies = new HashSet<string>();
-            foreach(var (key, value) in allProducts)
+            if(allStockIds.Count > 0)
             {
-                allStockCompanies.Add(value.Gcp);
+                allProducts = _productRepository.GetAllProductsById(allStockIds);
             }
-            // Make one query for all company information
-            var allCompanies = _companyRepository.GetAllCompaniesByGcp(allStockCompanies);
-            // var allCompanies = new Dictionary<string, CompanyDataModel>();
 
 
-
+            Dictionary<string, CompanyDataModel> allCompanies = new Dictionary<string, CompanyDataModel>();
+            if (allProducts.Count > 0)
+            {
+                //Make a list of company names needed
+                var allStockCompanies = new HashSet<string>();
+                foreach(var (key, value) in allProducts)
+                {
+                    allStockCompanies.Add(value.Gcp);
+                }
+                // Make one query for all company information
+                allCompanies = _companyRepository.GetAllCompaniesByGcp(allStockCompanies);
+            }
 
             Dictionary<Company, List<InboundOrderLine>> orderlinesByCompany = new Dictionary<Company, List<InboundOrderLine>>();
 
