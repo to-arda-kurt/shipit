@@ -1,18 +1,22 @@
-﻿﻿namespace ShipIt.Models.ApiModels
+﻿﻿using System.Collections;
+using ShipIt.Models.Helpers;
+
+namespace ShipIt.Models.ApiModels
 {
     public class OrderRespond : Response
     {
 
-        public int NumOfTrucks { get; set; }
+        public TruckPacker TruckPacker { get; set; }
         //Empty constructor required for xml serialization.
         public OrderRespond()
         {
         }
 
-        public OrderRespond(int numOfTrucks)
+        public OrderRespond(TruckPacker truckPacker)
         {
-            NumOfTrucks= numOfTrucks;
+            TruckPacker = truckPacker;
             Success = true;
         }
     }
 }
+

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
+using ShipIt.Models.Helpers;
 using ShipIt.Repositories;
 
 namespace ShipIt.Controllers
@@ -52,6 +53,10 @@ namespace ShipIt.Controllers
             var errors = new List<string>();
             double totalWeight = 0.0;
 
+            var truckPacker = new TruckPacker(request.OrderLines, products);
+
+            truckPacker.LoadTrucks();
+
             foreach (var orderLine in request.OrderLines)
             {
                 if (!products.ContainsKey(orderLine.gtin))
@@ -66,6 +71,7 @@ namespace ShipIt.Controllers
 
                     lineItems.Add(new StockAlteration(product.Id, orderLine.quantity));
                     productIds.Add(product.Id);
+
                 }
             }
 
@@ -108,7 +114,7 @@ namespace ShipIt.Controllers
 
             var numOfTrucks = (int)Math.Ceiling(totalWeight/2000000);
 
-            return new OrderRespond(numOfTrucks);
+            return new OrderRespond(truckPacker);
         }
     }
 }
