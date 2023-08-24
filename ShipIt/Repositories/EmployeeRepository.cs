@@ -42,7 +42,7 @@ namespace ShipIt.Repositories
                 try
                 {
                     reader.Read();
-                    return (int) reader.GetInt64(0);
+                    return (int)reader.GetInt64(0);
                 }
                 finally
                 {
@@ -73,12 +73,13 @@ namespace ShipIt.Repositories
             };
         }
 
+
         public EmployeeDataModel GetEmployeeByName(string name)
         {
-            string sql = "SELECT name, w_id, role, ext FROM em WHERE name = @name";
+            string sql = "SELECT name, w_id, role, em_id, ext FROM em WHERE name = @name";
             var parameter = new NpgsqlParameter("@name", name);
             string noProductWithIdErrorMessage = string.Format("No employees found with name: {0}", name);
-            return base.RunSingleGetQuery(sql, reader => new EmployeeDataModel(reader),noProductWithIdErrorMessage, parameter);
+            return base.RunSingleGetQuery(sql, reader => new EmployeeDataModel(reader), noProductWithIdErrorMessage, parameter);
         }
 
         public IEnumerable<EmployeeDataModel> GetEmployeesByWarehouseId(int warehouseId)
@@ -95,7 +96,7 @@ namespace ShipIt.Repositories
         {
 
             string sql = "SELECT name, w_id, role, ext FROM em WHERE w_id = @w_id AND role = @role";
-            var parameters = new []
+            var parameters = new[]
             {
                 new NpgsqlParameter("@w_id", warehouseId),
                 new NpgsqlParameter("@role", DataBaseRoles.OperationsManager)
@@ -109,7 +110,7 @@ namespace ShipIt.Repositories
         public void AddEmployees(IEnumerable<Employee> employees)
         {
             string sql = "INSERT INTO em (name, w_id, role, ext) VALUES(@name, @w_id, @role, @ext)";
-            
+
             var parametersList = new List<NpgsqlParameter[]>();
             foreach (var employee in employees)
             {
