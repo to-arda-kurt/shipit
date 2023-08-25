@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -40,13 +40,6 @@ namespace ShipIt.Controllers
 
             var productDataModels = _productRepository.GetProductsByGtin(gtins);
             var products = productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
-
-
-
-            // Track Quantity from orderline.quantity
-            // Get Product Weight from products
-            // Make calculation and add to totalWeight
-            // Calculate how many trucks we need roughly
 
             var lineItems = new List<StockAlteration>();
             var productIds = new List<int>();

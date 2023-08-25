@@ -9,14 +9,13 @@ namespace ShipIt.Models.Helpers
     {
         const decimal MAX_WEIGHT = 2000000;
         public int Id { get; set; }
-        public List<OrderLine> Cargo {get; set;}
-
+        public List<CargoLine> CargoLines {get; set;}
         public decimal Weight { get; set;}
 
         public Truck(int id)
         {
             Id = id;
-            Cargo = new List<OrderLine>();
+            CargoLines = new List<CargoLine>();
             Weight = 0;
         }
 
@@ -26,10 +25,10 @@ namespace ShipIt.Models.Helpers
             return newWeight <= MAX_WEIGHT;
         }
 
-        public void LoadProductToTruck(OrderLine orderline, decimal productWeight)
+        public void LoadProductToTruck(CargoLine cargoLine)
         {
-            Cargo.Add(orderline);
-            Weight += productWeight;
+            CargoLines.Add(cargoLine);
+            Weight += cargoLine.Weight;
         }
 
 
